@@ -21,7 +21,19 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
+
+    // Userのリダイレクト先
     public const HOME = '/home';
+
+    // Adminのリダイレクト先
+    public const ADMIN_HOME = '/admin/home';
+
+    // Companyのリダイレクト先
+    public const COMPANY_HOME = '/company/home';
+
+
+
+
 
     /**
      * Define your route model bindings, pattern filters, etc.

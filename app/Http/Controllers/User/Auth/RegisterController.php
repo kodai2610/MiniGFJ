@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;    
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -38,7 +41,19 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:users');
+    }
+
+    // Guardの認証方法を指定
+    protected function guard()
+    {
+        return Auth::guard('users');
+    }
+
+    // 新規登録画面
+    public function showRegistrationForm()
+    {
+        return view('user.auth.register');
     }
 
     /**
@@ -60,7 +75,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {

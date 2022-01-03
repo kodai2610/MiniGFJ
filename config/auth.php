@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'users',//デフォルトで39行目を参照
         'passwords' => 'users',
     ],
 
@@ -36,9 +36,19 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'users' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+
+        'companies' => [
+            'driver' => 'session',
+            'provider' => 'companies',//companyモデルから取ってくる
         ],
 
         'api' => [
@@ -68,7 +78,17 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
+        ],
+
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'companies' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Company::class,
         ],
 
         // 'users' => [
@@ -96,6 +116,20 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60, //期限
+            'throttle' => 60, //ログインできなくなる時間
+        ],
+
+        'admin' => [
+            'provider' => 'admin',
+            'table' => 'admin_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'companies' => [
+            'provider' => 'companies',
+            'table' => 'company_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
