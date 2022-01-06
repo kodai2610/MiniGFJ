@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Occupation;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 
-class OccupationController extends Controller
+class IndustryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class OccupationController extends Controller
     public function index()
     {
         //
-        $occupations = Occupation::all();
-        return view('admin.occupation.index',compact('occupations'));
+        $industries = Industry::all();
+        return view('admin.industry.index', compact('industries'));
     }
 
     /**
@@ -27,8 +27,8 @@ class OccupationController extends Controller
      */
     public function create()
     {
-        //Cから先に作り始める
-        return view('admin.occupation.create');
+        //
+        return view('admin.industry.create');
     }
 
     /**
@@ -43,9 +43,9 @@ class OccupationController extends Controller
         $request->validate([
             'name' => 'required|max:50',
         ]);
-        $post = $request->all();//入力値受け取り
-        Occupation::create($post);
-        return redirect()->route('admin.occupation.index');
+        $post = $request->all();
+        Industry::create($post);
+        return redirect()->route('admin.industry.index');
     }
 
 
@@ -58,8 +58,8 @@ class OccupationController extends Controller
     public function edit($id)
     {
         //
-        $occupation = Occupation::find($id);
-        return view('admin.occupation.edit', compact('occupation'));
+        $industry = Industry::find($id);
+        return view('admin.industry.edit', compact('industry'));
     }
 
     /**
@@ -75,11 +75,11 @@ class OccupationController extends Controller
         $request->validate([
             'name' => 'required|max:50',
         ]);
-        $post = $request->all();
-        unset($post['_method']);
-        unset($post['_token']);
-        Occupation::where(['id' => $id])->update($post);
-        return redirect()->route('admin.occupation.index');
+        $update = [
+            'name' => $request->name,
+        ];
+        Industry::where('id',$id)->update($update);
+        return redirect()->route('admin.industry.index');
     }
 
     /**
@@ -91,7 +91,7 @@ class OccupationController extends Controller
     public function destroy($id)
     {
         //
-        Occupation::where(['id' => $id])->delete();
-        return redirect()->route('admin.occupation.index');
+        Industry::where('id',$id)->delete();
+        return redirect()->route('admin.industry.index');
     }
 }

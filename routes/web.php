@@ -75,6 +75,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{id}','OccupationController@destroy')->name('destroy');
         });
         
+        //業界一覧
+        Route::resource('industry', 'IndustryController', ['except' => 'show']);
     });
 });
 

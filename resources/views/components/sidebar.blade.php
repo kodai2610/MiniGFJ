@@ -8,7 +8,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('admin.occupation.index') }}">
           <span data-feather="file"></span>
           職種一覧
         </a>
