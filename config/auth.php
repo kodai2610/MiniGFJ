@@ -117,7 +117,7 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60, //期限
-            'throttle' => 60, //ログインできなくなる時間
+            'throttle' => 60, //ログインできなくなる回数
         ],
 
         'admin' => [

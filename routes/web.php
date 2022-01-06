@@ -43,6 +43,7 @@ Route::namespace('User')->prefix('/')->name('user.')->group(function () {
     Route::middleware('auth:users')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
+
     });
 });
 
@@ -63,6 +64,17 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('home', 'HomeController', ['only' => 'index']);
         //crud対応
         //resource(uri, controller,routeの制限)
+        
+        //職種一覧
+        Route::prefix('occupation')->name('occupation.')->group(function() {
+            Route::get('/','OccupationController@index')->name('index');
+            Route::get('/create','OccupationController@create')->name('create');
+            Route::post('/','OccupationController@store')->name('store');
+            Route::get('/{id}/edit','OccupationController@edit')->name('edit');
+            Route::put('/{id}','OccupationController@update')->name('update');
+            Route::delete('/{id}','OccupationController@destroy')->name('destroy');
+        });
+        
     });
 });
 

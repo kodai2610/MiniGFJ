@@ -93,7 +93,7 @@
         * ナビゲーションバー
         */
 
-        .navbar-brand {
+        .navbar-brand.navbar-brand-dark {
         padding-top: .75rem;
         padding-bottom: .75rem;
         font-size: 1rem;
@@ -126,32 +126,13 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-dark navbar-light sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
-            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="サイドバーメニュー" aria-expanded="false" aria-label="ナビゲーションの切替">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <input class="form-control form-control-dark w-100" type="search" placeholder="検索" aria-label="検索">
-            <ul class="navbar-nav px-3">
-                @unless(Auth::guard('admin')->check())
-                    <li class="nav-item text-nowrap">
-                        <a class="nav-link" href="{{ route('admin.login') }}">ログイン</a>
-                    </li>
-                    @if (Route::has('admin.register'))
-                        <li class="nav-item text-nowrap">
-                            <a class="nav-link" href="{{ route('admin.register') }}">登録</a>
-                        </li>
-                    @endif
-                @else 
-                    <li class="nav-item text-nowrap">
-                        <a class="nav-link" href="{{ route('admin.logout') }}"  onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
-                    </li>
-                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                @endunless
-            </ul>
-        </nav>
+        @unless (Auth::guard('admin')->check())
+            @component('components.admin.front_header')
+            @endcomponent
+        @else
+            @component('components.admin.dashboard_header')
+            @endcomponent
+        @endunless
         <main class="py-4">
             @yield('content')
         </main>
