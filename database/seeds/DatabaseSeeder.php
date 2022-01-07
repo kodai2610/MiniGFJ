@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Industry;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,5 +13,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+        $this->call([
+            OccupationSeeder::class,
+            IndustrySeeder::class,
+        ]);
     }
 }

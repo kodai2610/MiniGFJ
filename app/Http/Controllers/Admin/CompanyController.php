@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Company; //Eloquent エロくアント
+
 
 class CompanyController extends Controller
 {   
@@ -19,7 +21,7 @@ class CompanyController extends Controller
     public function index()
     {
         //
-        dd('企業です');
+        
     }
 
     /**
