@@ -3,16 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Industry;
 use Illuminate\Http\Request;
 
-class IndustryController extends Controller
+class CompanyController extends Controller
 {   
-    /**
-     * 新しいIndustryControllerインスタンスの生成
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -25,8 +19,7 @@ class IndustryController extends Controller
     public function index()
     {
         //
-        $industries = Industry::all();
-        return view('admin.industry.index', compact('industries'));
+        dd('企業です');
     }
 
     /**
@@ -37,7 +30,6 @@ class IndustryController extends Controller
     public function create()
     {
         //
-        return view('admin.industry.create');
     }
 
     /**
@@ -49,14 +41,18 @@ class IndustryController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-        ]);
-        $post = $request->all();
-        Industry::create($post);
-        return redirect()->route('admin.industry.index');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -67,8 +63,6 @@ class IndustryController extends Controller
     public function edit($id)
     {
         //
-        $industry = Industry::find($id);
-        return view('admin.industry.edit', compact('industry'));
     }
 
     /**
@@ -81,14 +75,6 @@ class IndustryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-        ]);
-        $update = [
-            'name' => $request->name,
-        ];
-        Industry::where('id',$id)->update($update);
-        return redirect()->route('admin.industry.index');
     }
 
     /**
@@ -100,7 +86,5 @@ class IndustryController extends Controller
     public function destroy($id)
     {
         //
-        Industry::where('id',$id)->delete();
-        return redirect()->route('admin.industry.index');
     }
 }

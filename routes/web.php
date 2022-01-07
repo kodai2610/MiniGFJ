@@ -77,6 +77,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         
         //業界一覧
         Route::resource('industry', 'IndustryController', ['except' => 'show']);
+
+        //企業管理
+        Route::resource('company', 'CompanyController');
+        
     });
 });
 

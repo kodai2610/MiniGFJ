@@ -7,7 +7,16 @@ use App\Models\Occupation;
 use Illuminate\Http\Request;
 
 class OccupationController extends Controller
-{
+{   
+    /**
+     * 新しいOccupationControllerインスタンスの生成
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *
