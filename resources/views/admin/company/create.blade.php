@@ -66,7 +66,17 @@
               </div>
             </div>
             <div class="mb-3 row">
-              <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">住所</label>
+              <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">業界</label>
+              <div class="col-sm-8">
+                <select class="form-control">
+                  @foreach ($industries as $industry)
+                    <option value="{{ $industry->id }}">{{ $industry->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">本社所在地</label>
               <div class="col-sm-10">
                 <select class="custom-select col-sm-4" id="select-pref">
                   <option selected>都道府県を選択してください</option>
@@ -104,7 +114,7 @@
           var code = ('00'+ i ).slice(-2); //sliceで2桁にする ゼロパディング: 書式の桁数に満たない数値の場合に、足りない桁数だけ 0 を追加して桁数を合わせることです。たとえば3桁で1を表す場合、足りない2桁をゼロで埋めて 001 と表記します。
           // console.log(code);
           // console.log(data[i-1][code].pref);
-          $('#select-pref').append('<option value="'+code+'">'+data[i-1][code].pref+'</option>'); //県を表示
+          $('#select-pref').append('<option value="'+data[i-1][code].pref+'" data-id="'+ code +'">'+data[i-1][code].pref+'</option>'); //県を表示
         }
       });
     });
@@ -112,13 +122,13 @@
     // 都道府県メニューに連動した市区町村フォーム生成
     $('#select-pref').on('change', function() {
       $('#select-city option:nth-child(n+2)').remove(); // ※1 市区町村フォームクリア
-        var select_pref = ('00'+$('#select-pref option:selected').val()).slice(-2);//2桁に合わせて県のコードを取得
+        var select_pref = ('00'+$('#select-pref option:selected').data('id')).slice(-2);//2桁に合わせて県のコードを取得
         // console.log(select_pref);01
         var key = Number(select_pref) - 1;
         //0
         $.getJSON(url, function(data) {
           for(var i = 0; i < data[key][select_pref].city.length; i++){
-            $('#select-city').append('<option value="'+data[key][select_pref].city[i].id+'">'+data[key][select_pref].city[i].name+'</option>');
+            $('#select-city').append('<option value="'+data[key][select_pref].city[i].name+'">'+data[key][select_pref].city[i].name+'</option>');
           }
       });
     });

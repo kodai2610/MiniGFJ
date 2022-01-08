@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company; //Eloquent エロくアント
-
+use App\Models\Industry;
 
 class CompanyController extends Controller
 {   
@@ -31,7 +31,8 @@ class CompanyController extends Controller
     public function create()
     {
         //
-        return view('admin.company.create');
+        $industries = Industry::all();
+        return view('admin.company.create', compact('industries'));
     }
 
     /**
