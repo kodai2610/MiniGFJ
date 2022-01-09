@@ -81,11 +81,14 @@
             <div class="mb-3 row">
               <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">本社所在地</label>
               <div class="col-sm-10">
-                <select class="custom-select col-sm-4" id="select-pref">
-                  <option selected>都道府県を選択してください</option>
+                <select class="custom-select col-sm-4" id="select-pref" name="prefecture_id">
+                  <option value="" selected>都道府県を選択してください</option>
+                  @foreach ($prefectures as $prefecture)
+                    <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
+                  @endforeach
                 </select>
-                <select class="custom-select col-sm-4" id="select-city">
-                  <option>市区町村を選択してください</option>
+                <select class="custom-select col-sm-4" id="select-city" name="city_id">
+                  <option value="" selected>市区町村を選択してください</option>
                 </select>
                 @if ($errors->any())
                   <ul>
@@ -119,15 +122,16 @@
         // Ajaxリクエストが成功した時発動
         .done((data) => {
           $('#select-city').empty();
-          $('#select-city').append('<option selected>市区町村を選択してください</option>');
+          $('#select-city').append('<option value="" selected>市区町村を選択してください</option>');
           console.log(data);
-          // $.each(data, function(i, e) {
-          //   if (e.id == cityId) {
-          //     $('#city_select').append('<option value="' + e.id + '" selected>' + e.name + '</option>');
-          //   } else {
-          //     $('#city_select').append('<option value=' + e.id + '>' + e.name + '</option>');
-          //   }
-          // });
+          $.each(data, function(i, e) { //i:index, e:object
+            $('#select-city').append('<option value=' + e.id + '>' + e.name + '</option>');
+            // if (e.id == cityId) {
+            //   $('#city_select').append('<option value="' + e.id + '" selected>' + e.name + '</option>');
+            // } else {
+            //   $('#city_select').append('<option value=' + e.id + '>' + e.name + '</option>');
+            // }
+          });
         })
 
         // Ajaxリクエストが失敗した時発動
@@ -136,10 +140,18 @@
         })
     }
 
-    $(document).on('change', '#select-pref', function(e) {
-      const val = $(this).val(); //select-prefのvalが入る
+    $('#select-pref').off('change').on('change', function() {
+      const val = $(this).val(); //select-prefのprefecture_idが入る
       setCities(val);
     });
+
+    // $(document).on('change', '#select-pref', function(e) {
+    //   if(jqxhr) {
+    //     return;
+    //   }
+    //   const val = $(this).val(); //select-prefのprefecture_idが入る
+    //   jqxhr = setCities(val); //なぜか２回呼ばれる
+    // });
   </script>
   {{-- @php
     $url = asset('data/pref_city.json'); //url
