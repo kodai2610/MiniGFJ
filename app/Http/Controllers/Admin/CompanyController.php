@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Company; //Eloquent エロくアント
 use App\Models\Industry;
+use App\Models\Prefecture;
+use App\Models\City;
 
 class CompanyController extends Controller
 {   
@@ -32,7 +34,9 @@ class CompanyController extends Controller
     {
         //
         $industries = Industry::all();
-        return view('admin.company.create', compact('industries'));
+        $prefectures = Prefecture::all();
+        // $cities = City::all();
+        return view('admin.company.create', compact('industries', 'prefectures'));
     }
 
     /**

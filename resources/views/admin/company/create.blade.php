@@ -26,11 +26,12 @@
             <div class="mb-3 row">
               <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">企業名</label>
               <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}"><!--old第二引数はデフォルト値-->
+                <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
+                <!--old第二引数はデフォルト値-->
                 @if ($errors->any())
                   <ul>
                     @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{$error}}</li>
+                      <li style="color:red;">{{ $error }}</li>
                     @endforeach
                   </ul>
                 @endif
@@ -40,11 +41,12 @@
             <div class="mb-3 row">
               <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">メールアドレス</label>
               <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}"><!--old第二引数はデフォルト値-->
+                <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
+                <!--old第二引数はデフォルト値-->
                 @if ($errors->any())
                   <ul>
                     @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{$error}}</li>
+                      <li style="color:red;">{{ $error }}</li>
                     @endforeach
                   </ul>
                 @endif
@@ -54,11 +56,12 @@
             <div class="mb-3 row">
               <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">パスワード</label>
               <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}"><!--old第二引数はデフォルト値-->
+                <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
+                <!--old第二引数はデフォルト値-->
                 @if ($errors->any())
                   <ul>
                     @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{$error}}</li>
+                      <li style="color:red;">{{ $error }}</li>
                     @endforeach
                   </ul>
                 @endif
@@ -67,7 +70,7 @@
             </div>
             <div class="mb-3 row">
               <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">業界</label>
-              <div class="col-sm-8">
+              <div class="col-sm-4">
                 <select class="form-control">
                   @foreach ($industries as $industry)
                     <option value="{{ $industry->id }}">{{ $industry->name }}</option>
@@ -82,12 +85,12 @@
                   <option selected>都道府県を選択してください</option>
                 </select>
                 <select class="custom-select col-sm-4" id="select-city">
-                  <option selected>市区町村を選択してください</option>
+                  <option>市区町村を選択してください</option>
                 </select>
                 @if ($errors->any())
                   <ul>
                     @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{$error}}</li>
+                      <li style="color:red;">{{ $error }}</li>
                     @endforeach
                   </ul>
                 @endif
@@ -101,10 +104,46 @@
       </main>
     </div>
   </div>
-  @php
+  <script type="module">
+    //ajax:JavaScriptとXMLを使ったサーバーとの通信
+    //非同期通信:非同期通信とは、リクエストを出してからデータが返って来る前の処理を、ブラウザ上で行い、更新した部分だけをリクエストして処理を行う、という通信
+    //jqueryのajax
+    function setCities(prefectureId, cityId = null) { //cityId:渡されないor undefinedの時 nullとして初期化
+      $.ajax({
+          url: '/get-cities', //URLまたはディレクトリを記載
+          type: 'GET', //内容を書き換える場合はPOST
+          data: {
+            'prefecture_id': prefectureId //アクセスするときに必要なデータを記載
+          }
+        })
+        // Ajaxリクエストが成功した時発動
+        .done((data) => {
+          $('#select-city').empty();
+          $('#select-city').append('<option selected>市区町村を選択してください</option>');
+          console.log(data);
+          // $.each(data, function(i, e) {
+          //   if (e.id == cityId) {
+          //     $('#city_select').append('<option value="' + e.id + '" selected>' + e.name + '</option>');
+          //   } else {
+          //     $('#city_select').append('<option value=' + e.id + '>' + e.name + '</option>');
+          //   }
+          // });
+        })
+
+        // Ajaxリクエストが失敗した時発動
+        .fail((data) => {
+          alert('error');
+        })
+    }
+
+    $(document).on('change', '#select-pref', function(e) {
+      const val = $(this).val(); //select-prefのvalが入る
+      setCities(val);
+    });
+  </script>
+  {{-- @php
     $url = asset('data/pref_city.json'); //url
   @endphp
-  {{--jqueryはlayouts.appで読み込み済み--}}
   <script type="module">
     var url = @json($url);//laravelの変数を取得
     // 都道府県フォーム生成
@@ -132,7 +171,7 @@
           }
       });
     });
-  </script>
+  </script> --}}
   @component('components.admin.feather')
   @endcomponent
 @endsection

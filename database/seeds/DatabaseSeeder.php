@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             OccupationSeeder::class,
             IndustrySeeder::class,
+            PrefecturesTableSeeder::class,
+            CitiesTableSeeder::class
         ]);
     }
 }

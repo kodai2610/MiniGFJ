@@ -81,6 +81,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         //企業管理
         Route::resource('company', 'CompanyController');
         
+
     });
 });
 
@@ -105,3 +106,5 @@ Route::namespace('Company')->prefix('company')->name('company.')->group(function
 });
 
 
+//Ajax
+Route::get('/get-cities', 'AjaxController@getCities')->name('ajax.get_cities');
