@@ -49,8 +49,8 @@ return [
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'driver' => 'local', //画像をローカルに保存
+            'root' => storage_path('app/public'), //storage/app/publicの配下に画像を保存
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

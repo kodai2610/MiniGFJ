@@ -20,7 +20,7 @@ class Industry extends Model
         private
         同じクラスの中でのみアクセス可能です。非公開で継承クラスからもアクセス不可能となります。
     */
-    public function cities() {
-        return $this->hasMany('App\Models\City');
+    public function companies() {
+        return $this->hasMany('App\Models\Company');
     }
 }

@@ -12,9 +12,8 @@ class Company extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = ['id'];
+    //ブラックリスト方式
 
     /**
      * The attributes that should be hidden for arrays.
@@ -33,4 +32,20 @@ class Company extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //このcompanyが所属する業界を返す
+    public function industry() {
+        return $this->belongsTo('App\Models\Industry');
+    }
+
+    //このcompanyが所属する都道府県
+    public function prefecture() {
+        return $this->belongsTo('App\Models\Prefecture');
+    }
+
+    //このcompanyが所属する市区町村
+    public function city() {
+        return $this->belongsTo('App\Models\City');
+    }
+
 }

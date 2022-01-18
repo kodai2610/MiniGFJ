@@ -8,6 +8,7 @@ use App\Models\Company; //Eloquent エロくアント
 use App\Models\Industry;
 use App\Models\Prefecture;
 use App\Models\City;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {   
@@ -23,6 +24,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
+        $companies = Company::all();
+        return view('admin.company.index', compact('companies'));
     }
 
     /**
@@ -48,6 +51,13 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         //
+        $inputValue = $request->all(); //array
+        $inputValue['logo'] = $request->file('logo')->store('images');//画像のパスが返る
+        //file = アップロードしたファイルにアクセス
+        //store = storage>app>public 内にimagesディレクトリを作成して保存
+        $company = Company::create($inputValue);
+
+        return redirect()->route('admin.company.show', $company->id);
     }
 
     /**
@@ -59,6 +69,8 @@ class CompanyController extends Controller
     public function show($id)
     {
         //
+        $company = Company::find($id);
+        return view('admin.company.show', compact('company'));
     }
 
     /**
@@ -70,6 +82,10 @@ class CompanyController extends Controller
     public function edit($id)
     {
         //
+        $industries = Industry::all();
+        $prefectures = Prefecture::all();
+        $company = Company::find($id);
+        return view('admin.company.edit',compact('company','industries','prefectures'));
     }
 
     /**
@@ -81,7 +97,20 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //編集前のcompanyを取得
+        $previousCompany = Company::find($id);
+        $update = $request->all();
+        $image = $request->file('logo');
+        if(!isset($image)) {
+            $update['logo'] = $previousCompany->logo;
+        }else {
+            \Storage::disk('public')->delete($previousCompany->logo);//画像の削除
+            $update['logo'] = $image->store('images');
+        }
+        unset($update['_token']);
+        unset($update['_method']);
+        Company::where('id', $id)->update($update);
+        return redirect()->route('admin.company.show', $id);
     }
 
     /**
@@ -93,5 +122,7 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
+        Company::where('id', $id)->delete();
+        return redirect()->route('admin.company.index');
     }
 }
