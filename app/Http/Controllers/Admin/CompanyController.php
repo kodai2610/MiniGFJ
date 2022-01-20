@@ -8,10 +8,12 @@ use App\Models\Company; //Eloquent エロくアント
 use App\Models\Industry;
 use App\Models\Prefecture;
 use App\Models\City;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {   
+
     public function __construct()
     {
         $this->middleware('auth:admin');
@@ -51,6 +53,19 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|max:50',
+            'email' => 'required|max:50',
+            'password' => 'required|max:50',
+            'industry_id' => 'required',
+            'prefecture_id' => 'required',
+            'city_id' => 'required',
+            'ceo' => 'required|max:50',
+            'url' => 'required|max:255',
+            'logo' => 'required',
+            'staff_name' => 'required|max:50',
+            'staff_email' => 'required|max:50',
+        ]);
         $inputValue = $request->all(); //array
         $inputValue['logo'] = $request->file('logo')->store('images');//画像のパスが返る
         //file = アップロードしたファイルにアクセス
@@ -96,7 +111,20 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   
+        $request->validate([
+            'name' => 'required|max:50',
+            'email' => 'required|max:50',
+            'password' => 'required|max:50',
+            'industry_id' => 'required',
+            'prefecture_id' => 'required',
+            'city_id' => 'required',
+            'ceo' => 'required|max:50',
+            'url' => 'required|max:255',
+            'logo' => 'required',
+            'staff_name' => 'required|max:50',
+            'staff_email' => 'required|max:50',
+        ]);
         //編集前のcompanyを取得
         $previousCompany = Company::find($id);
         $update = $request->all();

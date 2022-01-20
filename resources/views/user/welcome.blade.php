@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
                 background-color: #fff;
@@ -70,30 +71,17 @@
                     @auth('users')
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('user.login') }}">Login</a>
+                        <a href="{{ route('user.login') }}">ユーザーログイン</a>
 
                         @if (Route::has('user.register'))
-                            <a href="{{ route('user.register') }}">Register</a>
+                            <a href="{{ route('user.register') }}">ユーザー登録</a>
                         @endif
                     @endauth
                 </div>
             @endif
-
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <a href="{{ route('admin.login') }}" class="btn btn-primary btn-lg pt-4 pb-4 pl-5 pr-5" style="font-size: 2rem;">管理者用</a>
+                <a href="{{ route('company.login') }}" class="btn btn-secondary btn-lg ml-3 pt-4 pb-4 pl-5 pr-5" style="font-size: 2rem;">企業用</a>
             </div>
         </div>
     </body>

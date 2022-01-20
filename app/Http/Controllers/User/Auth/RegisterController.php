@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Prefecture;
 
 class RegisterController extends Controller
 {
@@ -52,8 +53,9 @@ class RegisterController extends Controller
 
     // 新規登録画面
     public function showRegistrationForm()
-    {
-        return view('user.auth.register');
+    {   
+        $prefectures = Prefecture::all();
+        return view('user.auth.register', compact('prefectures'));
     }
 
     /**
@@ -66,8 +68,14 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'ruby' => ['required', 'string', 'max:255'],
+            'tell' => ['required',],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'birth_day' => ['required'],
+            'gender' => ['required'],
+            'prefecture_id' => ['required'],
+            'city_id' => ['required'],
         ]);
     }
 
@@ -81,8 +89,14 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'ruby' => $data['ruby'],
+            'birth_day' => $data['birth_day'],
+            'gender' => $data['gender'],
+            'prefecture_id' => $data['prefecture_id'],
+            'city_id' => $data['city_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'tell' => $data['tell']
         ]);
     }
 }

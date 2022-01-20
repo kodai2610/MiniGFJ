@@ -147,6 +147,20 @@ return [
 
     'attributes' => [
         'name' => 'この値',
+        'email' => 'この値',
+        'ruby' => 'この値',
+        'password' => 'この値',
+        'industry_id' => 'この値',
+        'prefecture_id' => 'この値',
+        'city_id' => 'この値',
+        'ceo' => 'この値',
+        'url' => 'この値',
+        'logo' => 'この値',
+        'staff_name' => 'この値',
+        'staff_email' => 'この値',
+        'tell' => 'この値',
+        'birth_day' => 'この値',
+        'gender' => 'この値',
     ],
 
 ];

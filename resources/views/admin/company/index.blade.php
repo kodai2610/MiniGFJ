@@ -19,6 +19,7 @@
               <tr>
                 <th>ID</th>
                 <th>企業名</th>
+                <th>登録日</th>
                 <th>アクション</th>
               </tr>
             </thead>
@@ -27,6 +28,7 @@
               <tr>
                 <td>{{ $company->id }}</td>
                 <td>{{ $company->name }}</td>
+                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$company->created_at)->format("Y年m月d日") }}</td>
                 <td>
                   <a type="button" href="{{ route('admin.company.edit', $company->id) }}" class="btn btn-outline-danger">編集</a>
                   <a type="button" href="{{ route('admin.company.show', $company->id) }}" class="btn btn-outline-danger">詳細</a>
