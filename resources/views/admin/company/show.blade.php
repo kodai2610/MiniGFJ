@@ -24,7 +24,7 @@
           </dl>
           <dl class="row">
             <dt class="col-3 h4">パスワード</dt>
-            <dd class="col-9 h4">{{ $company->password }}</dd>
+            <dd class="col-9 h4"></dd>
           </dl>
           <dl class="row">
             <dt class="col-3 h4">業界</dt>

@@ -10,6 +10,7 @@ use App\Models\Prefecture;
 use App\Models\City;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class CompanyController extends Controller
 {   
@@ -55,8 +56,8 @@ class CompanyController extends Controller
         //
         $request->validate([
             'name' => 'required|max:50',
-            'email' => 'required|max:50',
-            'password' => 'required|max:50',
+            'email' => 'required|string|max:50|unique:companies',
+            'password' => 'required|max:50|string|min:8|confirmed',
             'industry_id' => 'required',
             'prefecture_id' => 'required',
             'city_id' => 'required',
@@ -68,6 +69,7 @@ class CompanyController extends Controller
         ]);
         $inputValue = $request->all(); //array
         $inputValue['logo'] = $request->file('logo')->store('images');//画像のパスが返る
+        $inputValue['password'] = Hash::make($inputValue['password']);
         //file = アップロードしたファイルにアクセス
         //store = storage>app>public 内にimagesディレクトリを作成して保存
         $company = Company::create($inputValue);

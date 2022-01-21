@@ -135,13 +135,10 @@
 </head>
 <body>
     <div id="app">
-        @unless (Auth::guard('admin')->check())
-            @component('components.admin.front_header')
-            @endcomponent
-        @else
+        @if (Auth::guard('admin')->check())
             @component('components.admin.dashboard_header')
             @endcomponent
-        @endunless
+        @endif
         <main class="py-4">
             @yield('content')
         </main>

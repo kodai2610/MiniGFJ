@@ -53,13 +53,20 @@
             <div class="mb-3 row">
               <label for="password" class="col-sm-2 col-form-label required" style="font-size: 1rem">パスワード</label>
               <div class="col-sm-6">
-                <input type="text" name="password" class="form-control" value="{{ old('password') }}">
+                <input type="password" name="password" class="form-control">
                 <!--old第二引数はデフォルト値-->
                 @if ($errors->has('password'))
                   <ul>
                     <li style="color:red;">{{ $errors->first('password') }}</li>
                   </ul>
                 @endif
+              </div>
+            </div>
+            {{-- password_confirmation --}}
+            <div class="mb-3 row">
+              <label for="password_confirmation" class="col-sm-2 col-form-label required" style="font-size: 1rem">パスワード確認用</label>
+              <div class="col-sm-6">
+                <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
               </div>
             </div>
             {{-- industry --}}
