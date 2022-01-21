@@ -3,7 +3,7 @@
 @section('content')
   <div class="container-fluid">
     <div class="row">
-      @component('components.sidebar')
+      @component('components.admin.sidebar')
       @endcomponent
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <div
@@ -236,6 +236,5 @@
       setCities(val,cityId);
     });
   </script>
-  @component('components.admin.feather')
-  @endcomponent
 @endsection
+

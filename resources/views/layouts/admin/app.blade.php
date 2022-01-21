@@ -143,5 +143,9 @@
             @yield('content')
         </main>
     </div>
+        @if(Auth::guard('admin')->check())
+            @component('components.feather')
+            @endcomponent
+        @endif
 </body>
 </html>

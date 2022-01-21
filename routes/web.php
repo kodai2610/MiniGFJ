@@ -102,6 +102,9 @@ Route::namespace('Company')->prefix('company')->name('company.')->group(function
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
+        //求人
+        Route::resource('job', 'JobController');
+
     });
 });
 
