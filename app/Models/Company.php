@@ -48,4 +48,8 @@ class Company extends Authenticatable
         return $this->belongsTo('App\Models\City');
     }
 
+    public function jobs() {
+        return $this->hasMany('App\Models\Job');
+    }
+
 }

@@ -7,12 +7,12 @@
           ダッシュボード <span class="sr-only">(現位置)</span>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a class="nav-link {{ request()->route()->named('admin.occupation*') ? 'active' : '' }}" href="{{ route('company.occupation.index') }}">
+      <li class="nav-item">
+        <a class="nav-link {{ request()->route()->named('company.job*') ? 'active' : '' }}" href="{{ route('company.job.index') }}">
           <span data-feather="file"></span>
-          職種一覧
+          求人管理
         </a>
-      </li> --}}
+      </li>
     </ul>
   </div>
 </nav>

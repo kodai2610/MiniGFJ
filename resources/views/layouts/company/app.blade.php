@@ -143,7 +143,7 @@
             @yield('content')
         </main>
     </div>
-    @if(Auth::guard('admin')->check())
+    @if(Auth::guard('companies')->check())
         @component('components.feather')
         @endcomponent
     @endif

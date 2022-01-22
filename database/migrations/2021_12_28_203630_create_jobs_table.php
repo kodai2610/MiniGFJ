@@ -17,7 +17,6 @@ class CreateJobsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('display_message');
-            $table->string('employment_type');
             $table->string('img');
             $table->string('location');
             $table->integer('salary_type');

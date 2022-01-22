@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\EmploymentType;
 use App\Models\Industry;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +18,8 @@ class DatabaseSeeder extends Seeder
             OccupationSeeder::class,
             IndustrySeeder::class,
             PrefecturesTableSeeder::class,
-            CitiesTableSeeder::class
+            CitiesTableSeeder::class,
+            EmploymentTypeSeeder::class,
         ]);
     }
 }
