@@ -64,7 +64,6 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('home', 'HomeController', ['only' => 'index']);
         //crud対応
         //resource(uri, controller,routeの制限)
-        
         //職種一覧
         Route::prefix('occupation')->name('occupation.')->group(function() {
             Route::get('/','OccupationController@index')->name('index');
@@ -75,12 +74,14 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{id}','OccupationController@destroy')->name('destroy');
         });
         
-        //業界一覧
+        //業界
         Route::resource('industry', 'IndustryController', ['except' => 'show']);
 
         //企業管理
         Route::resource('company', 'CompanyController');
         
+        //特徴
+        Route::resource('feature', 'FeatureController');
 
     });
 });

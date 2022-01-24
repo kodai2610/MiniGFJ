@@ -161,6 +161,14 @@ return [
         'tell' => 'この値',
         'birth_day' => 'この値',
         'gender' => 'この値',
+        'title' => 'この値',
+        'display_message' => 'この値',
+        'occupation_id' => 'この値',
+        'content' => 'この値',
+        'location' => 'この値',
+        'work_hour' => 'この値',
+        'feature_ids' => 'この値',
+        'empTypes' => 'この値',
     ],
 
 ];

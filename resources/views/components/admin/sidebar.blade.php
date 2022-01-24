@@ -20,7 +20,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link {{ request()->route()->named('admin.feature*') ? 'active' : '' }}" href="{{ route('admin.feature.index') }}">
           <span data-feather="users"></span>
           特徴一覧
         </a>

@@ -7,6 +7,7 @@ use App\Models\EmploymentType;
 use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Occupation;
+use App\Models\Feature;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -40,7 +41,8 @@ class JobController extends Controller
         //
         $occupations = Occupation::all();
         $employmentTypes = EmploymentType::all();
-        return view('company.job.create',compact('occupations', 'employmentTypes'));
+        $features = Feature::all();
+        return view('company.job.create',compact('occupations', 'employmentTypes','features'));
     }
 
     /**
@@ -60,6 +62,8 @@ class JobController extends Controller
             'salary_min' => 'required',
             'location' => 'required|max:255',
             'work_hour' => 'required|max:255',
+            'empTypes' => 'required',
+            'feature_ids' => 'required',
         ]);
         $inputValue = $request->all();
         if($request->hasFile('img')){
@@ -68,7 +72,8 @@ class JobController extends Controller
         //現在ログインしている企業を取得
         $inputValue['company_id'] = Auth::id();
         $job = Job::create($inputValue);
-        $job->empTypes()->sync($inputValue['empTypes']);
+        $job->empTypes()->sync($inputValue['empTypes']);//中間テーブルに保存
+        $job->features()->sync($inputValue['feature_ids']);//中間テーブルに保存
         return redirect()->route('company.job.index');
     }
 
@@ -81,6 +86,8 @@ class JobController extends Controller
     public function show($id)
     {
         //
+        $job = Job::find($id);
+        return view('company.job.show', compact('job'));
     }
 
     /**
@@ -92,6 +99,11 @@ class JobController extends Controller
     public function edit($id)
     {
         //
+        $job = Job::find($id);
+        $occupations = Occupation::all();
+        $employmentTypes = EmploymentType::all();
+        $features = Feature::all();
+        return view('company.job.edit', compact('job','occupations','employmentTypes','features'));
     }
 
     /**
@@ -104,6 +116,35 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'title' => 'required|max:50',
+            'display_message' => 'required|max:255',
+            'occupation_id' => 'required',
+            'content' => 'required|max:255',
+            'salary_min' => 'required',
+            'location' => 'required|max:255',
+            'work_hour' => 'required|max:255',
+            'empTypes' => 'required',
+            'feature_ids' => 'required',
+        ]);
+        $previousJob = Job::find($id);
+        $update = $request->all();
+        //画像の処理
+        if($request->hasFile('img')) {
+            \Storage::disk('public')->delete($previousJob->img);//画像の削除
+            $update['img'] = $request->file('img')->store('images'); //画像の更新
+        }elseif(isset($previousJob['img'])) {
+            $update['img'] = $previousJob->img;
+        }
+        //syncのupdate
+        $previousJob->empTypes()->sync($update['empTypes']);
+        $previousJob->features()->sync($update['feature_ids']);
+        unset($update['empTypes']);
+        unset($update['feature_ids']);
+        unset($update['_token']);
+        unset($update['_method']);
+        Job::where('id', $id)->update($update);
+        return redirect()->route('company.job.show', $id);
     }
 
     /**
@@ -115,5 +156,7 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
+        Job::where('id', $id)->delete();
+        return redirect()->route('company.job.index');
     }
 }

@@ -9,7 +9,6 @@
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">企業編集</h1>
-          
         </div>
         <form class="card w-100 shadow-sm" action="{{ route('admin.company.update', $company->id) }}" method="POST" enctype="multipart/form-data">
           @csrf
