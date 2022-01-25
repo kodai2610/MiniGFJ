@@ -15,11 +15,16 @@
         </div>
         <div class="container card-deck" style="flex-wrap:wrap">       
           @foreach ($jobs as $job)
-            <a class="card mt-3" style="max-width:30%;min-width:30%;">
+            <a class="card mt-3" style="max-width:30%;min-width:30%;" href="{{ route('user.job.show', $job->id) }}">
               <img src="{{\Storage::url($job->img)}}" alt="" style="width:100%;height:180px;">  
               <div class="card-body">
                 <h5 class="card-title">{{ $job->title }}</h5>
-                <p class="card-text">{{ $job->display_message }}</p>
+                <ul class="card-text list-group list-group-flush">
+                    {{-- <li class="list-group-item">{{ $job->companies->name }}</li> --}}
+                    <li class="list-group-item">{{ $job->company->name }}</li>
+                    <li class="list-group-item">{{ Str::limit($job->display_message, 20) }}</li>
+                </ul>
+                {{-- <p class="card-text">{{ $job->display_message }}</p> --}}
               </div>
               <div class="card-footer">
                 <small class="text-muted">{{ $job->occupation->name }}</small>

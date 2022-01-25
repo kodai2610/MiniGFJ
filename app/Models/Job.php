@@ -22,7 +22,7 @@ class Job extends Model
     }
 
     public function company() {
-        return $this->belongsTo('App\Models\Job');
+        return $this->belongsTo('App\Models\Company');
     }
 
 }

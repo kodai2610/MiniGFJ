@@ -4,7 +4,7 @@
       <li class="nav-item">
         <a class="nav-link {{ request()->route()->named('user.home.index') ? 'active' : '' }}" href="{{ route('user.home.index') }}">
           <span data-feather="home"></span>
-          求人一覧 <span class="sr-only">(現位置)</span>
+          求人<span class="sr-only">(現位置)</span>
         </a>
       </li>
       {{-- <li class="nav-item">

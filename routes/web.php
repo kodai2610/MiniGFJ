@@ -44,7 +44,10 @@ Route::namespace('User')->prefix('/')->name('user.')->group(function () {
         // TOPページ
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
+        Route::resource('job', 'JobController');
     });
+
+
 });
 
 // 管理者
