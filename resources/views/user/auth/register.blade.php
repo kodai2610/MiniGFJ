@@ -183,9 +183,9 @@
         })
     }
 
-    if(prefecureId && cityId) {
-      setCities(prefecureId,cityId);
-    }
+    // if(prefecureId && cityId) {
+    //   setCities(prefecureId,cityId);
+    // }
 
     $('#select-pref').off('change').on('change', function() {
       const val = $(this).val(); //select-prefのprefecture_idが入る
