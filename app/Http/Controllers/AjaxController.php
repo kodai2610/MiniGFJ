@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Prefecture;
 use App\Models\City;
+use App\Models\Message;
 
 class AjaxController extends Controller
 {
@@ -18,4 +19,11 @@ class AjaxController extends Controller
             //配列が返ってくる
         }
     }
+
+    public function getMessages() {
+        $messages = Message::orderBy('created_at', 'desc')->get();
+        $json = ['messages' => $messages];
+        return response()->json($json);
+    }
+
 }

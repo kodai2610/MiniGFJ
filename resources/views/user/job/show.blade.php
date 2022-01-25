@@ -10,8 +10,14 @@
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">{{$job->company->name}}の求人</h1>
           <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="{{ route('company.job.index') }}" class="btn btn-secondary btn-lg">戻る</a>
-            <a href="{{ route('company.entry.index', $job->id) }}" class="btn btn-warning btn-lg ml-2">応募する</a>  
+            <a href="{{ route('user.job.index') }}" class="btn btn-secondary btn-lg">戻る</a>
+            @unless ($job->entries->contains('user_id',Auth::id()))
+              <form action="{{ route('user.entry.store', $job->id) }}" method="post" style="display:inline-block;">
+                @csrf
+                <button type="submit" class="btn btn-warning btn-lg ml-2">応募する</button>
+              </form>
+            @endunless
+            {{-- <a href="{{ route('user.entry.show', $job->id) }}" class="btn btn-warning btn-lg ml-2">応募する</a>   --}}
           </div>
         </div>
         <div class="table-responsive">

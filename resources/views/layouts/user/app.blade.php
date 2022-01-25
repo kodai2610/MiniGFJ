@@ -146,6 +146,58 @@
             color: red;
             left: 3px;
         }
+
+.chat-container {
+  width: 100%;
+  height: 100%;
+}
+
+.chat-card {
+  height: 55vh;
+  overflow: auto;
+}
+
+.chat-area {
+  width: 70%;
+}
+
+.comment-container {
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.comment-area {
+  width: 70%;
+}
+
+.comment-btn {
+  margin: 0px 10px;
+}
+
+.comment-body {
+  padding: 5px 30px 20px 30px;
+}
+
+.comment-body:hover {
+  background-color: #dfdfdf;
+}
+
+.comment-body-user {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.comment-body-time {
+  font-size: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+  color: #a0a0a0;
+}
+.card {
+  height: 100%;
+}
+/*# sourceMappingURL=view.css.map */
     </style>
 </head>
 <body>

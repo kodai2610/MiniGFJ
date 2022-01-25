@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\User\EntryController;
+
 Route::get('/', function () {
     return view('user.welcome');
 });
@@ -45,6 +47,12 @@ Route::namespace('User')->prefix('/')->name('user.')->group(function () {
         Route::resource('home', 'HomeController', ['only' => 'index']);
 
         Route::resource('job', 'JobController');
+
+        Route::prefix('entry')->name('entry.')->group(function() {
+            Route::get('/{id}', 'EntryController@show')->name('show');
+            Route::post('/{id}', 'EntryController@store')->name('store');
+            Route::post('/{id}', 'EntryController@add')->name('add');
+        });
     });
 
 
@@ -115,3 +123,4 @@ Route::namespace('Company')->prefix('company')->name('company.')->group(function
 
 //Ajax
 Route::get('/get-cities', 'AjaxController@getCities')->name('ajax.get_cities');
+Route::get('/get-messages', 'AjaxController@getMessages')->name('ajax.get_messages');
