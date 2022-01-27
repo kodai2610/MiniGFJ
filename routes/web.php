@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\User\EntryController;
+use App\Models\Entry;
 
 Route::get('/', function () {
     return view('user.welcome');
@@ -49,9 +50,10 @@ Route::namespace('User')->prefix('/')->name('user.')->group(function () {
         Route::resource('job', 'JobController');
 
         Route::prefix('entry')->name('entry.')->group(function() {
+            Route::get('/', 'EntryController@index')->name('index');
             Route::get('/{id}', 'EntryController@show')->name('show');
             Route::post('/{id}', 'EntryController@store')->name('store');
-            Route::post('/{id}', 'EntryController@add')->name('add');
+            Route::post('/add/{id}', 'EntryController@add')->name('add');
         });
     });
 
@@ -116,6 +118,13 @@ Route::namespace('Company')->prefix('company')->name('company.')->group(function
         
         //求人
         Route::resource('job', 'JobController');
+
+        Route::prefix('entry')->name('entry.')->group(function() {
+            Route::get('/', 'EntryController@index')->name('index');
+            Route::get('/{id}', 'EntryController@show')->name('show');
+            Route::post('/{id}', 'EntryController@add')->name('add');
+            Route::delete('/{id}', 'EntryController@destroy')->name('destroy');
+        });
 
     });
 });

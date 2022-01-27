@@ -92,7 +92,6 @@
 
                             <div class="col-md-6">
                                 <input type="date" name="birth_day" class="form-control @error('birth_day') is-invalid @enderror" name="birth_day" value="{{ old('birth_day') }}" autocomplete="birth_day">
-
                                 @error('birth_day')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

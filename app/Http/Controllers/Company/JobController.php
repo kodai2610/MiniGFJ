@@ -156,7 +156,12 @@ class JobController extends Controller
     public function destroy($id)
     {
         //
-        Job::where('id', $id)->delete();
+        // Job::where('id', $id)->delete();
+        $job = Job::find($id);
+        $job->entries()->each(function($post) {
+            $post->delete();
+        });
+        $job->delete();
         return redirect()->route('company.job.index');
     }
 }

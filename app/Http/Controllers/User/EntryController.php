@@ -11,10 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class EntryController extends Controller
 {
     //
+    public function index() {
+        $entries = Entry::where('user_id',Auth::id())->get();
+        return view('user.entry.index', compact('entries'));
+    }
+    
     public function show($id)
     {   
         $entry = Entry::find($id);
-        $messages = Message::get();
+        $messages = Message::where('entry_id', $id)->get();
         return view('user.entry.show', compact('entry','messages'));
     }
 

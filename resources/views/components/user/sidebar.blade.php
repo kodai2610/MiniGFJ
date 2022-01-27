@@ -7,12 +7,12 @@
           求人<span class="sr-only">(現位置)</span>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a class="nav-link {{ request()->route()->named('company.job*') ? 'active' : '' }}" href="{{ route('company.job.index') }}">
+      <li class="nav-item">
+        <a class="nav-link {{ request()->route()->named('user.entry*') ? 'active' : '' }}" href="{{ route('user.entry.index') }}">
           <span data-feather="file"></span>
-          求人管理
+          応募した求人
         </a>
-      </li> --}}
+      </li>
     </ul>
   </div>
 </nav>

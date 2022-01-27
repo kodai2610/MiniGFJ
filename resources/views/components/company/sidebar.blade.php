@@ -13,6 +13,12 @@
           求人管理
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link {{ request()->route()->named('company.entry*') ? 'active' : '' }}" href="{{ route('company.entry.index') }}">
+          <span data-feather="file"></span>
+          応募管理
+        </a>
+      </li>
     </ul>
   </div>
 </nav>

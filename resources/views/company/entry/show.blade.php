@@ -1,26 +1,31 @@
-@extends('layouts.user.app')
+@extends('layouts.company.app')
 
 @section('content')
   <div class="container-fluid">
     <div class="row">
-      @component('components.user.sidebar')
+      @component('components.company.sidebar')
       @endcomponent
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">メッセージ</h1>
-          {{-- <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="{{ route('company.job.create') }}" class="btn btn-primary btn-lg">新規作成</a>
-          </div> --}}
         </div>
         <div class="container d-flex" style="justify-content: left;max-width:100%;">
           <div class="list-group" style="width: 20%;">
             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
               <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{$entry->job->company->name}}</h5>
+                <h5 class="mb-1">{{$entry->user->name}}</h5>
               </div>
-              <p class="mb-1">{{$entry->job->title}}</p>
-              <small>{{$entry->job->occupation->name }}</small>
+              <p class="mb-1">{{$entry->user->birth_day}}</p>
+              <small>
+                @if ($entry->user->gender === 1)
+                  男性
+                @elseif($entry->user->gender === 2)
+                  女性
+                @elseif($entry->user->gender === 0)
+                  未回答
+                @endif
+              </small>
             </a>
           </div>
           <div style="width:80%;">
@@ -37,7 +42,7 @@
                 </div>
               </div>
             </div>
-            <form action="{{ route('user.entry.add', $entry->id) }}" method="post" >
+            <form action="{{ route('company.entry.add', $entry->id) }}" method="post" >
               @csrf
               <div class="comment-container row justify-content-center">
                 <div class="input-group comment-area">
