@@ -15,7 +15,7 @@
             <thead>
               <tr>
                 <th>名前</th>
-                <th>生年月日</th>
+                <th>年齢</th>
                 <th>性別</th>
                 <th>地域</th>
                 <th>応募求人</th>
@@ -27,7 +27,8 @@
                 @foreach ($job->entries as $entry)
                   <tr>
                     <td>{{ $entry->user->name }}</td>
-                    <td>{{ $entry->user->birth_day }}</td>
+                    <td>{{ \Carbon\Carbon::parse($entry->user->birth_day)->age }}才</td>
+                    {{-- <td>{{ $entry->user->birth_day }}</td> --}}
                     <td>
                       @if ($entry->user->gender === 1)
                         男性

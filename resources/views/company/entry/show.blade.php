@@ -16,7 +16,7 @@
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{$entry->user->name}}</h5>
               </div>
-              <p class="mb-1">{{$entry->user->birth_day}}</p>
+              <p class="mb-1">{{\Carbon\Carbon::parse($entry->user->birth_day)->age }}才</p>
               <small>
                 @if ($entry->user->gender === 1)
                   男性
