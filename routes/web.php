@@ -54,6 +54,7 @@ Route::namespace('User')->prefix('/')->name('user.')->group(function () {
             Route::get('/{id}', 'EntryController@show')->name('show');
             Route::post('/{id}', 'EntryController@store')->name('store');
             Route::post('/add/{id}', 'EntryController@add')->name('add');
+            Route::delete('/{id}', 'EntryController@destroy')->name('destroy');
         });
     });
 
@@ -132,4 +133,4 @@ Route::namespace('Company')->prefix('company')->name('company.')->group(function
 
 //Ajax
 Route::get('/get-cities', 'AjaxController@getCities')->name('ajax.get_cities');
-Route::get('/get-messages', 'AjaxController@getMessages')->name('ajax.get_messages');
+// Route::get('/get-messages', 'AjaxController@getMessages')->name('ajax.get_messages');

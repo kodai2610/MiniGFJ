@@ -20,9 +20,9 @@
               <div class="card-body">
                 <h5 class="card-title">{{ $entry->job->title }}</h5>
                 <ul class="card-text list-group list-group-flush">
-                    {{-- <li class="list-group-item">{{ $job->companies->name }}</li> --}}
                     <li class="list-group-item">{{ $entry->job->company->name }}</li>
                     <li class="list-group-item">{{ Str::limit($entry->job->display_message, 20) }}</li>
+                    {{-- <li class="list-group-item"><a href="{{ route('user.entry.index') }}" class="btn btn-secondary">戻る</a></li> --}}
                 </ul>
                 {{-- <p class="card-text">{{ $job->display_message }}</p> --}}
               </div>

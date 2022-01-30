@@ -19,6 +19,9 @@ return [
         'gender' => '性別(必須)',
         'address' => '現住所(必須)',
         'btn' => 'ユーザー登録する',
+        'login' => 'ログイン',
+        'loginEmail' => 'メールアドレス',
+        'loginPassword' => 'パスワード',
     ]
 ];
 

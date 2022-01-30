@@ -169,6 +169,7 @@ return [
         'work_hour' => 'この値',
         'feature_ids' => 'この値',
         'empTypes' => 'この値',
+        'img' => 'この値',
     ],
 
 ];

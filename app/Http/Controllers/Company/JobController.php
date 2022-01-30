@@ -59,6 +59,7 @@ class JobController extends Controller
             'display_message' => 'required|max:255',
             'occupation_id' => 'required',
             'content' => 'required|max:255',
+            'img' => 'required',
             'salary_min' => 'required',
             'location' => 'required|max:255',
             'work_hour' => 'required|max:255',
@@ -66,9 +67,7 @@ class JobController extends Controller
             'feature_ids' => 'required',
         ]);
         $inputValue = $request->all();
-        if($request->hasFile('img')){
             $inputValue['img'] = $request->file('img')->store('images');//fileで操作してstoreに保存Pathが返る
-        }
         //現在ログインしている企業を取得
         $inputValue['company_id'] = Auth::id();
         $job = Job::create($inputValue);
@@ -116,6 +115,7 @@ class JobController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $request->validate([
             'title' => 'required|max:50',
             'display_message' => 'required|max:255',
@@ -129,13 +129,15 @@ class JobController extends Controller
         ]);
         $previousJob = Job::find($id);
         $update = $request->all();
+        $img = $request->file('img');
         //画像の処理
-        if($request->hasFile('img')) {
+        if(!isset($img)) {
+            $update['img'] = $previousJob->img;
+        }else {
             \Storage::disk('public')->delete($previousJob->img);//画像の削除
             $update['img'] = $request->file('img')->store('images'); //画像の更新
-        }elseif(isset($previousJob['img'])) {
-            $update['img'] = $previousJob->img;
         }
+
         //syncのupdate
         $previousJob->empTypes()->sync($update['empTypes']);
         $previousJob->features()->sync($update['feature_ids']);

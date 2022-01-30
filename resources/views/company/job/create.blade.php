@@ -43,7 +43,7 @@
             </div>
             {{-- img --}}
             <div class="mb-3 row">
-              <label class="col-sm-2 col-form-label" style="font-size: 1rem">イメージ画像</label>
+              <label class="col-sm-2 col-form-label required" style="font-size: 1rem">イメージ画像</label>
               <div class="col-sm-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="customFile" name="img">
@@ -96,8 +96,13 @@
               <div class="col-sm-6">
                 @foreach ($employmentTypes as $type)
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="empTypes[]" value="{{ $type->id }}"
+                    <input class="form-check-input" type="checkbox" name="empTypes[{{ $type->id }}]" value="{{ $type->id }}" {{ old('empTypes.'.$type->id) == $type->id ? 'checked' : '' }}
                       id="empType_{{ $type->id }}">
+                    {{--
+                      ・キーをemploymentのidにしておく
+                      ・oldは.で配列にアクセスできる
+                      ・
+                    --}}
                     <label class="form-check-label" for="empType_{{ $type->id }}">{{ $type->name }}</label>
                   </div>
                 @endforeach
@@ -114,17 +119,17 @@
               <div class="col-sm-6">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input @error('salary_type') is-invalid @enderror" type="radio" name="salary_type"
-                    value="1">
+                    value="1" {{ old('salary_type') == 1 ? 'checked' : '' }}>
                   <label class="form-check-label">月給</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input @error('salary_type') is-invalid @enderror" type="radio" name="salary_type"
-                    value="2">
+                    value="2" {{ old('salary_type') == 2 ? 'checked' : '' }}>
                   <label class="form-check-label">時給</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input @error('salary_type') is-invalid @enderror" type="radio" name="salary_type"
-                    value="3">
+                    value="3" {{ old('salary_type') == 3 ? 'checked' : '' }}>
                   <label class="form-check-label">日給</label>
                 </div>
               </div>
@@ -200,7 +205,7 @@
               <div class="col-sm-6">
                 @foreach ($features as $feature)
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="feature_ids[]" value="{{ $feature->id }}">
+                    <input class="form-check-input" type="checkbox" name="feature_ids[{{ $feature->id }}]" value="{{ $feature->id }}" {{ old('feature_ids.'.$feature->id) == $feature->id ? 'checked' : '' }}>
                     <label class="form-check-label">{{ $feature->name }}</label>
                   </div>
                 @endforeach

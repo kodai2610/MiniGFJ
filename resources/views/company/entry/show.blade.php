@@ -9,6 +9,14 @@
         <div
           class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">メッセージ</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <form action="{{ route('company.entry.destroy', $entry->id) }}" method="post" style="display:inline-block;">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-lg">ブロック</button>
+            </form>
+            <a href="{{ route('company.entry.index') }}" class="btn btn-secondary btn-lg ml-2">戻る</a>
+          </div>
         </div>
         <div class="container d-flex" style="justify-content: left;max-width:100%;">
           <div class="list-group" style="width: 20%;">
@@ -57,24 +65,4 @@
       </main>
     </div>
   </div>
-  <script type="module">
-    function get_data() {
-      $.ajax({
-        url: "/get-messages",
-        dataType: "json",
-        success: data => {
-          console.log(data);
-          // 成功時の処理
-        },
-        error: () => {
-          alert("ajax Error");
-        }
-      })
-      setTimeout(get_data, 5000);
-    }
-    $(function() {
-      get_data();
-    })
-    
-  </script>
 @endsection

@@ -74,6 +74,12 @@ class EntryController extends Controller
         ]);
         return redirect()->route('user.entry.show',$id);
     }
+
+    public function destroy($id) {
+        $entry = Entry::find($id);
+        $entry->delete();
+        return redirect()->route('user.entry.index');
+    }
 }
 
 

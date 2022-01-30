@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CitiesTableSeeder::class,
             EmploymentTypeSeeder::class,
             FeaturesTableSeeder::class,
+            AdminsTableSeeder::class,
         ]);
     }
 }

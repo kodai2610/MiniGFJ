@@ -20,10 +20,10 @@ class AjaxController extends Controller
         }
     }
 
-    public function getMessages() {
-        $messages = Message::orderBy('created_at', 'desc')->get();
-        $json = ['messages' => $messages];
-        return response()->json($json);
-    }
+    // public function getMessages() {
+    //     $messages = Message::orderBy('created_at', 'desc')->get();
+    //     $json = ['messages' => $messages];
+    //     return response()->json($json);
+    // }
 
 }
