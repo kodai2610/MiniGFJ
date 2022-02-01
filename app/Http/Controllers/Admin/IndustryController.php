@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreIndustry;
 use App\Models\Industry;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 class IndustryController extends Controller
 {   
@@ -46,7 +47,7 @@ class IndustryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreIndustry $request)
     {
         //
         $request->validate([
@@ -54,6 +55,7 @@ class IndustryController extends Controller
         ]);
         $post = $request->all();
         Industry::create($post);
+        session()->flash('msg_create', '✔︎ 作成が完了しました'); 
         return redirect()->route('admin.industry.index');
     }
 
@@ -78,16 +80,14 @@ class IndustryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreIndustry $request, $id)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-        ]);
         $update = [
             'name' => $request->name,
         ];
         Industry::where('id',$id)->update($update);
+        session()->flash('msg_update', '✔︎ 更新が完了しました');
         return redirect()->route('admin.industry.index');
     }
 
@@ -101,6 +101,7 @@ class IndustryController extends Controller
     {
         //
         Industry::where('id',$id)->delete();
+        session()->flash('msg_destroy', '✔︎ 削除が完了しました');
         return redirect()->route('admin.industry.index');
     }
 }

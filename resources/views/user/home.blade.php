@@ -12,8 +12,10 @@
           {{-- <div class="btn-toolbar mb-2 mb-md-0">
             <a href="{{ route('company.job.create') }}" class="btn btn-primary btn-lg">新規作成</a>
           </div> --}}
+          @component('components.flash')
+          @endcomponent
         </div>
-        <div class="container card-deck" style="flex-wrap:wrap">       
+        <div class="container card-deck" style="flex-wrap:wrap">
           @foreach ($jobs as $job)
             <a class="card mt-3" style="max-width:30%;min-width:30%;" href="{{ route('user.job.show', $job->id) }}">
               <img src="{{\Storage::url($job->img)}}" alt="" style="width:100%;height:180px;">  
@@ -35,4 +37,9 @@
       </main>
     </div>
   </div>
+  <script type="module">
+    $(function(){
+      $('.flash_message').fadeOut(2000);
+    });
+  </script>
 @endsection

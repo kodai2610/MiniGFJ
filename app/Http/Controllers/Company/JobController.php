@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreJob;
+use App\Http\Requests\UpdateJob;
 use App\Models\EmploymentType;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Models\Job;
 use App\Models\Occupation;
 use App\Models\Feature;
@@ -51,28 +53,16 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreJob $request)
     {
-        
-        $request->validate([
-            'title' => 'required|max:50',
-            'display_message' => 'required|max:255',
-            'occupation_id' => 'required',
-            'content' => 'required|max:255',
-            'img' => 'required',
-            'salary_min' => 'required',
-            'location' => 'required|max:255',
-            'work_hour' => 'required|max:255',
-            'empTypes' => 'required',
-            'feature_ids' => 'required',
-        ]);
         $inputValue = $request->all();
-            $inputValue['img'] = $request->file('img')->store('images');//fileで操作してstoreに保存Pathが返る
+        $inputValue['img'] = $request->file('img')->store('images');//fileで操作してstoreに保存Pathが返る
         //現在ログインしている企業を取得
         $inputValue['company_id'] = Auth::id();
         $job = Job::create($inputValue);
         $job->empTypes()->sync($inputValue['empTypes']);//中間テーブルに保存
         $job->features()->sync($inputValue['feature_ids']);//中間テーブルに保存
+        session()->flash('msg_create', '✔︎ 作成が完了しました'); 
         return redirect()->route('company.job.index');
     }
 
@@ -112,21 +102,9 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateJob $request, $id)
     {
         //
-
-        $request->validate([
-            'title' => 'required|max:50',
-            'display_message' => 'required|max:255',
-            'occupation_id' => 'required',
-            'content' => 'required|max:255',
-            'salary_min' => 'required',
-            'location' => 'required|max:255',
-            'work_hour' => 'required|max:255',
-            'empTypes' => 'required',
-            'feature_ids' => 'required',
-        ]);
         $previousJob = Job::find($id);
         $update = $request->all();
         $img = $request->file('img');
@@ -146,7 +124,8 @@ class JobController extends Controller
         unset($update['_token']);
         unset($update['_method']);
         Job::where('id', $id)->update($update);
-        return redirect()->route('company.job.show', $id);
+        session()->flash('msg_update', '✔︎ 更新が完了しました');
+        return redirect()->route('company.job.index');
     }
 
     /**
@@ -164,6 +143,7 @@ class JobController extends Controller
             $post->delete();
         });
         $job->delete();
+        session()->flash('msg_destroy', '✔︎ 削除が完了しました');
         return redirect()->route('company.job.index');
     }
 }

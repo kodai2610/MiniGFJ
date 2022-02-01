@@ -16,15 +16,15 @@ use App\Models\Entry;
 
 Route::get('/', function () {
     return view('user.welcome');
-});
+})->name('user.welcome');   
 
-Route::get('/admin', function () {
-    return view('admin.welcome');
-});
+// Route::get('/admin', function () {
+//     return view('admin.welcome');
+// });
 
-Route::get('/company', function () {
-    return view('company.welcome');
-});
+// Route::get('/company', function () {
+//     return view('company.welcome');
+// });
 
 // Auth::routes();
 

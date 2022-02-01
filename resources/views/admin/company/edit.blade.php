@@ -16,45 +16,39 @@
           <div class="card-body">
             {{-- name --}}
             <div class="mb-3 row">
-              <label for="name" class="col-sm-2 col-form-label" style="font-size: 1rem">企業名</label>
+              <label for="name" class="col-sm-2 col-form-label required" style="font-size: 1rem">企業名</label>
               <div class="col-sm-6">
                 <input type="text" name="name" class="form-control" value="{{ old('name', $company->name) }}">
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('name'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('name') }}</li>
                   </ul>
                 @endif
               </div>
             </div>
             {{-- email --}}
             <div class="mb-3 row">
-              <label for="email" class="col-sm-2 col-form-label" style="font-size: 1rem">メールアドレス</label>
+              <label for="email" class="col-sm-2 col-form-label required" style="font-size: 1rem">メールアドレス</label>
               <div class="col-sm-6">
                 <input type="text" name="email" class="form-control" value="{{ old('email', $company->email) }}">
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('email'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('email') }}</li>
                   </ul>
                 @endif
               </div>
             </div>
             {{-- password --}}
             <div class="mb-3 row">
-              <label for="password" class="col-sm-2 col-form-label" style="font-size: 1rem">パスワード</label>
+              <label for="password" class="col-sm-2 col-form-label required" style="font-size: 1rem">パスワード</label>
               <div class="col-sm-6">
                 <input type="password" name="password" class="form-control">
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('password'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('password') }}</li>
                   </ul>
                 @endif
               </div>
@@ -68,25 +62,23 @@
             </div>
             {{-- industry --}}
             <div class="mb-3 row">
-              <label for="industry_id" class="col-sm-2 col-form-label" style="font-size: 1rem">業界</label>
+              <label for="industry_id" class="col-sm-2 col-form-label required" style="font-size: 1rem">業界</label>
               <div class="col-sm-3">
                 <select class="form-control" name="industry_id">
                   @foreach ($industries as $industry)
                     <option value="{{ $industry->id }}" @if(old('indstry_id', $company->industry->id) == $industry->id) selected @endif>{{ $industry->name }}</option>
                   @endforeach
                 </select>
-                @if ($errors->any())
+                @if ($errors->has('industry_id'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('industrt_id') }}</li>
                   </ul>
                 @endif
               </div>
             </div>
             {{-- pref,city --}}
             <div class="mb-3 row">
-              <label class="col-sm-2 col-form-label" style="font-size: 1rem">本社所在地</label>
+              <label class="col-sm-2 col-form-label required" style="font-size: 1rem">本社所在地</label>
               <div class="col-sm-10">
                 <select class="custom-select col-sm-4" id="select-pref" name="prefecture_id">
                   <option value="">都道府県を選択してください</option>
@@ -97,11 +89,9 @@
                 <select class="custom-select col-sm-4" id="select-city" name="city_id">
                   <option value="">市区町村を選択してください</option>
                 </select>
-                @if ($errors->any())
+                @if ($errors->has('industry_id') || $errors->has('city_id'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">この値は必ず指定してください。</li>
                   </ul>
                 @endif
                 <small class="form-text text-muted"></small>
@@ -109,30 +99,26 @@
             </div>
             {{-- ceo --}}
             <div class="mb-3 row">
-              <label for="ceo" class="col-sm-2 col-form-label" style="font-size: 1rem">代表者名</label>
+              <label for="ceo" class="col-sm-2 col-form-label required" style="font-size: 1rem">代表者名</label>
               <div class="col-sm-6">
                 <input type="text" name="ceo" class="form-control" value="{{ old('ceo', $company->ceo) }}">
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('ceo'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('ceo')}}</li>
                   </ul>
                 @endif
               </div>
             </div>
             {{-- ホームペ --}}
             <div class="mb-3 row">
-              <label for="url" class="col-sm-2 col-form-label" style="font-size: 1rem">企業HP</label>
+              <label for="url" class="col-sm-2 col-form-label required" style="font-size: 1rem">企業HP</label>
               <div class="col-sm-6">
                 <input type="text" name="url" class="form-control" value="{{ old('url', $company->url) }}">
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('url'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('url')}}</li>
                   </ul>
                 @endif
               </div>
@@ -151,7 +137,7 @@
             </div>
             {{-- ロゴ画像 --}}
             <div class="mb-3 row">
-              <label for="logo" class="col-sm-2 col-form-label" style="font-size: 1rem">ロゴ画像</label>
+              <label for="logo" class="col-sm-2 col-form-label required" style="font-size: 1rem">ロゴ画像</label>
               <div class="col-sm-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="customFile" name="logo">
@@ -164,11 +150,9 @@
                 </label>
                 </div>
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('logo'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('logo')}}</li>
                   </ul>
                 @endif
                 <small class="form-text text-muted"></small>
@@ -176,30 +160,26 @@
             </div>
             {{-- staff_name --}}
             <div class="mb-3 row">
-              <label for="staff_name" class="col-sm-2 col-form-label" style="font-size: 1rem">ご担当者名</label>
+              <label for="staff_name" class="col-sm-2 col-form-label required" style="font-size: 1rem">ご担当者名</label>
               <div class="col-sm-6">
                 <input type="text" name="staff_name" class="form-control" value="{{ old('staff_name', $company->staff_name) }}">
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('staff_name'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('staff_name')}}</li>
                   </ul>
                 @endif
               </div>
             </div>
             {{-- staff_email --}}
             <div class="mb-3 row">
-              <label for="staff_email" class="col-sm-2 col-form-label" style="font-size: 1rem">ご担当者メールアドレス</label>
+              <label for="staff_email" class="col-sm-2 col-form-label required" style="font-size: 1rem">ご担当者メールアドレス</label>
               <div class="col-sm-6">
                 <input type="text" name="staff_email" class="form-control" value="{{ old('staff_email', $company->staff_email) }}">
                 <!--old第二引数はデフォルト値-->
-                @if ($errors->any())
+                @if ($errors->has('staff_email'))
                   <ul>
-                    @foreach ($errors->all() as $error)
-                      <li style="color:red;">{{ $error }}</li>
-                    @endforeach
+                    <li style="color:red;">{{ $errors->first('staff_email')}}</li>
                   </ul>
                 @endif
               </div>

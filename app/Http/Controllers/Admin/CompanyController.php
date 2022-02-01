@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Models\Company; //Eloquent エロくアント
 use App\Models\Industry;
 use App\Models\Prefecture;
 use App\Models\City;
+use App\Http\Requests\StoreCompany;
+use App\Http\Requests\UpdateCompany;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -51,30 +53,17 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCompany $request)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-            'email' => 'required|string|max:50|unique:companies',
-            'password' => 'required|max:50|string|min:8|confirmed',
-            'industry_id' => 'required',
-            'prefecture_id' => 'required',
-            'city_id' => 'required',
-            'ceo' => 'required|max:50',
-            'url' => 'required|max:255',
-            'logo' => 'required',
-            'staff_name' => 'required|max:50',
-            'staff_email' => 'required|max:50',
-        ]);
         $inputValue = $request->all(); //array
         $inputValue['logo'] = $request->file('logo')->store('images');//画像のパスが返る
         $inputValue['password'] = Hash::make($inputValue['password']);
         //file = アップロードしたファイルにアクセス
         //store = storage>app>public 内にimagesディレクトリを作成して保存
         $company = Company::create($inputValue);
-
-        return redirect()->route('admin.company.show', $company->id);
+        session()->flash('msg_create', '✔︎ 作成が完了しました'); 
+        return redirect()->route('admin.company.index',);
     }
 
     /**
@@ -112,24 +101,12 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCompany $request, $id)
     {   
-        $request->validate([
-            'name' => 'required|max:50',
-            'email' => 'required|max:50',
-            'password' => 'required|max:50',
-            'industry_id' => 'required',
-            'prefecture_id' => 'required',
-            'city_id' => 'required',
-            'ceo' => 'required|max:50',
-            'url' => 'required|max:255',
-            'logo' => 'required',
-            'staff_name' => 'required|max:50',
-            'staff_email' => 'required|max:50',
-        ]);
         //編集前のcompanyを取得
         $previousCompany = Company::find($id);
         $update = $request->all();
+        $update['password'] = Hash::make($request['password']);
         $image = $request->file('logo');
         if(!isset($image)) {
             $update['logo'] = $previousCompany->logo;
@@ -137,10 +114,12 @@ class CompanyController extends Controller
             \Storage::disk('public')->delete($previousCompany->logo);//画像の削除
             $update['logo'] = $image->store('images');
         }
+        unset($update['password_confirmation']);
         unset($update['_token']);
         unset($update['_method']);
         Company::where('id', $id)->update($update);
-        return redirect()->route('admin.company.show', $id);
+        session()->flash('msg_update', '✔︎ 更新が完了しました'); 
+        return redirect()->route('admin.company.index');
     }
 
     /**
@@ -153,6 +132,7 @@ class CompanyController extends Controller
     {
         //
         Company::where('id', $id)->delete();
+        session()->flash('msg_destroy', '✔︎ 削除が完了しました');
         return redirect()->route('admin.company.index');
     }
 }

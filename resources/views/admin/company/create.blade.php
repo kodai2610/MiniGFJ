@@ -174,7 +174,7 @@
                 @endif
               </div>
             </div>
-            {{-- email --}}
+            {{-- staff_email --}}
             <div class="mb-3 row">
               <label for="staff_email" class="col-sm-2 col-form-label required" style="font-size: 1rem">ご担当者メールアドレス</label>
               <div class="col-sm-6">

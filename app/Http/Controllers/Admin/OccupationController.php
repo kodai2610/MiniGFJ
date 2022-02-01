@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Occupation;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreOccupation;
 
 class OccupationController extends Controller
 {   
@@ -46,14 +47,12 @@ class OccupationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOccupation $request)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-        ]);
         $post = $request->all();//入力値受け取り
         Occupation::create($post);
+        session()->flash('msg_create', '✔︎ 作成が完了しました'); 
         return redirect()->route('admin.occupation.index');
     }
 
@@ -78,16 +77,14 @@ class OccupationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreOccupation $request, $id)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-        ]);
         $post = $request->all();
         unset($post['_method']);
         unset($post['_token']);
         Occupation::where(['id' => $id])->update($post);
+        session()->flash('msg_update', '✔︎ 更新が完了しました');
         return redirect()->route('admin.occupation.index');
     }
 
@@ -101,6 +98,7 @@ class OccupationController extends Controller
     {
         //
         Occupation::where(['id' => $id])->delete();
+        session()->flash('msg_destroy', '✔︎ 削除が完了しました');
         return redirect()->route('admin.occupation.index');
     }
 }

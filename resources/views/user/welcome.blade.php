@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <style>
             html, body {
@@ -66,6 +67,8 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
+            @component('components.flash')
+            @endcomponent
             @if (Route::has('user.login'))
                 <div class="top-right links">
                     @auth('users')
@@ -84,5 +87,18 @@
                 <a href="{{ route('company.login') }}" class="btn btn-secondary btn-lg ml-3 pt-4 pb-4 pl-5 pr-5" style="font-size: 2rem;">企業用</a>
             </div>
         </div>
+        <script type="module">
+            $(function(){
+                $('.flash_message').fadeOut(2000);
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script type="module">
+            @if(session('msg_logout'))
+                $(function () {
+                    toastr.success('{{ session('msg_logout') }}');
+                });
+            @endif;
+        </script>
     </body>
 </html>

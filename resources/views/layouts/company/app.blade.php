@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body {
@@ -198,5 +199,23 @@
         @component('components.feather')
         @endcomponent
     @endif
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="module">
+      @if (session('msg_create'))
+        $(function () {
+          toastr.success('{{ session('msg_create') }}');
+        });
+      @endif;
+      @if (session('msg_update'))
+        $(function () {
+          toastr.success('{{ session('msg_update') }}');
+        });
+      @endif;
+      @if (session('msg_destroy'))
+        $(function () {
+            toastr.danger('{{ session('msg_destroy') }}');
+        });
+      @endif;
+    </script>
 </body>
 </html>

@@ -28,7 +28,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    protected function redirectTo() {
+        session()->flash('msg_login', '✔︎ ログインしました');
+        return RouteServiceProvider::HOME;
+    }
+
 
     /**
      * Create a new controller instance.
@@ -48,7 +53,7 @@ class LoginController extends Controller
 
     // ログイン画面
     public function showLoginForm()
-    {
+    {   
         return view('user.auth.login');
     }
 
@@ -62,8 +67,9 @@ class LoginController extends Controller
 
     // ログアウトした時のリダイレクト先
     public function loggedOut(Request $request)
-    {
-        return redirect(route('user.login'));
+    {   
+        session()->flash('msg_logout', '✔︎ ログアウトしました');
+        return redirect(route('user.welcome'));
     }
    
 }

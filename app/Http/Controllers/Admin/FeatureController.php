@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
+use App\Http\Requests\StoreFeature;
 use App\Models\Feature;
+
 
 class FeatureController extends Controller
 {   
@@ -46,14 +48,12 @@ class FeatureController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFeature $request)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-        ]);
         $inputValue= $request->all();
         Feature::create($inputValue);
+        session()->flash('msg_create', '✔︎ 作成が完了しました'); 
         return redirect()->route('admin.feature.index');
     }
 
@@ -78,16 +78,14 @@ class FeatureController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreFeature $request, $id)
     {
         //
-        $request->validate([
-            'name' => 'required|max:50',
-        ]);
         $update = [
             'name' => $request->name,
         ];
         Feature::where('id',$id)->update($update);
+        session()->flash('msg_update', '✔︎ 更新が完了しました');
         return redirect()->route('admin.feature.index');
     }
 
@@ -101,6 +99,7 @@ class FeatureController extends Controller
     {
         //
         Feature::where('id',$id)->delete();
+        session()->flash('msg_destroy', '✔︎ 削除が完了しました');
         return redirect()->route('admin.feature.index');
     }
 }

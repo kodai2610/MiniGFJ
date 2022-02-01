@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">     
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         body {
@@ -147,56 +148,56 @@
             left: 3px;
         }
 
-.chat-container {
-  width: 100%;
-  height: 100%;
-}
+      .chat-container {
+        width: 100%;
+        height: 100%;
+      }
 
-.chat-card {
-  height: 55vh;
-  overflow: auto;
-}
+      .chat-card {
+        height: 55vh;
+        overflow: auto;
+      }
 
-.chat-area {
-  width: 70%;
-}
+      .chat-area {
+        width: 70%;
+      }
 
-.comment-container {
-  margin-top: 10px;
-  text-align: center;
-  width: 100%;
-}
+      .comment-container {
+        margin-top: 10px;
+        text-align: center;
+        width: 100%;
+      }
 
-.comment-area {
-  width: 70%;
-}
+      .comment-area {
+        width: 70%;
+      }
 
-.comment-btn {
-  margin: 0px 10px;
-}
+      .comment-btn {
+        margin: 0px 10px;
+      }
 
-.comment-body {
-  padding: 5px 30px 20px 30px;
-}
+      .comment-body {
+        padding: 5px 30px 20px 30px;
+      }
 
-.comment-body:hover {
-  background-color: #dfdfdf;
-}
+      .comment-body:hover {
+        background-color: #dfdfdf;
+      }
 
-.comment-body-user {
-  font-weight: bold;
-  font-size: 20px;
-}
+      .comment-body-user {
+        font-weight: bold;
+        font-size: 20px;
+      }
 
-.comment-body-time {
-  font-size: 10px;
-  margin-top: 10px;
-  margin-left: 5px;
-  color: #a0a0a0;
-}
-.card {
-  height: 100%;
-}
+      .comment-body-time {
+        font-size: 10px;
+        margin-top: 10px;
+        margin-left: 5px;
+        color: #a0a0a0;
+      }
+      .card {
+        height: 100%;
+      }
 /*# sourceMappingURL=view.css.map */
     </style>
 </head>
@@ -214,5 +215,18 @@
         @component('components.feather')
         @endcomponent
     @endif
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="module">
+      @if (session('msg_login'))
+        $(function () {
+          toastr.success('{{ session('msg_login') }}');
+        });
+      @endif;
+      @if (session('msg_create'))
+        $(function () {
+          toastr.success('{{ session('msg_create') }}');
+        });
+      @endif;
+    </script>
 </body>
 </html>

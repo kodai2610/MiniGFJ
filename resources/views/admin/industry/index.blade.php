@@ -22,6 +22,8 @@
                 <th>アクション</th>
               </tr>
             </thead>
+            @component('components.flash')
+            @endcomponent
             <tbody>
               @foreach ($industries as $industry)
               <tr>
@@ -45,4 +47,9 @@
       </main>
     </div>
   </div>
+  <script type="module">
+    $(function(){
+      $('.flash_message').fadeOut(2000);
+    });
+  </script>
 @endsection
