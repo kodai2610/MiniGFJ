@@ -28,7 +28,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
+    // protected $redirectTo = RouteServiceProvider::ADMIN_HOME;
+    protected function redirectTo() {
+        session()->flash('msg_login', '✔︎ ログインしました');
+        return RouteServiceProvider::ADMIN_HOME;
+    }
 
     /**
      * Create a new controller instance.
@@ -58,8 +62,9 @@ class LoginController extends Controller
     }
 
     public function loggedOut(Request $request)
-    {
-        return redirect(route('admin.login'));
+    {   
+        session()->flash('msg_logout', '✔︎ ログアウトしました');
+        return redirect(route('user.welcome'));
     }
 
 }

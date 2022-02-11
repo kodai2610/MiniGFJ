@@ -43,6 +43,7 @@
               @endforeach
             </tbody>
           </table>
+          {{ $occupations->links() }}
         </div>
       </main>
     </div>

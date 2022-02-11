@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateCompany;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class CompanyController extends Controller
 {   
@@ -29,7 +30,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
-        $companies = Company::all();
+        $companies = DB::table('companies')->orderBy('created_at', 'DESC')->paginate(6);
+        // $companies = Company::paginate(6);
         return view('admin.company.index', compact('companies'));
     }
 

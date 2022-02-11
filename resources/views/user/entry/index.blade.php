@@ -31,7 +31,8 @@
               </div>
             </a>
           @endforeach
-        </div>      
+        </div>  
+        <div class="mt-4">{{ $entries->links() }}</div>    
       </main>
     </div>
   </div>

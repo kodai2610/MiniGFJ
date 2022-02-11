@@ -216,6 +216,11 @@
             toastr.danger('{{ session('msg_destroy') }}');
         });
       @endif;
+      @if (session('msg_login'))
+        $(function () {
+            toastr.success('{{ session('msg_login') }}');
+        });
+      @endif;
     </script>
 </body>
 </html>

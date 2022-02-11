@@ -9,15 +9,27 @@ use App\Models\Company;
 use App\Models\Job;
 use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class EntryController extends Controller
 {
     //
-    public function index() {
+    public function index(Request $request) {
         //jobIdsの作成
         $companyId = Auth::guard('companies')->id();
         $jobs = Job::where('company_id',$companyId)->get();
-        return view('company.entry.index',compact('jobs'));
+        $jobIds = [];
+        foreach ($jobs as $job) {
+            $jobIds[] = $job->id;
+        }
+        $entries = Entry::whereIn('job_id',$jobIds)->paginate(1);
+        // $entries = [];
+        // foreach ($jobs as $job) {
+        //     foreach ($job->entries as $entry) {
+        //         $entries[] = $entry;
+        //     }
+        // }
+        return view('company.entry.index',compact('entries'));
     }
 
     public function show($id) {

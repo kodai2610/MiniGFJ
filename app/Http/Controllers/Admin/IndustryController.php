@@ -26,7 +26,8 @@ class IndustryController extends Controller
     public function index()
     {
         //
-        $industries = Industry::all();
+        $industries = Industry::paginate(1);
+        // $industries = Industry::all();
         return view('admin.industry.index', compact('industries'));
     }
 

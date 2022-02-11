@@ -27,7 +27,8 @@ class FeatureController extends Controller
     public function index()
     {
         //
-        $features = Feature::all();
+        // $features = Feature::all();
+        $features = Feature::paginate(10);
         return view('admin.feature.index', compact('features'));
     }
 

@@ -23,12 +23,10 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($jobs as $job)
-                @foreach ($job->entries as $entry)
+              @foreach ($entries as $entry)
                   <tr>
                     <td>{{ $entry->user->name }}</td>
                     <td>{{ \Carbon\Carbon::parse($entry->user->birth_day)->age }}才</td>
-                    {{-- <td>{{ $entry->user->birth_day }}</td> --}}
                     <td>
                       @if ($entry->user->gender === 1)
                         男性
@@ -40,7 +38,33 @@
                     </td>
                     <td>{{ $entry->user->prefecture->name }} {{ $entry->user->city->name }}</td>
                     <td>{{ $entry->job->title }}</td>
-                    {{-- <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$job->created_at)->format("Y年m月d日") }}</td> --}}
+                    <td>
+                      <a type="button" href="{{ route('company.entry.show', $entry->id) }}" class="btn btn-outline-danger">メッセージ</a>
+                      <form action="{{ route('company.entry.destroy',$entry->id) }}" method="post" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-danger">ブロック</button>
+                      </form>
+                    </td>
+                  </tr>
+              @endforeach
+              {{-- @foreach ($jobs as $job)
+                @foreach ($job->entries as $entry)
+                  <tr>
+                    <td>{{ $entry->user->name }}</td>
+                    <td>{{ \Carbon\Carbon::parse($entry->user->birth_day)->age }}才</td>
+                    {{-- <td>{{ $entry->user->birth_day }}</td>
+                    <td>
+                      @if ($entry->user->gender === 1)
+                        男性
+                      @elseif($entry->user->gender === 2)
+                        女性
+                      @elseif($entry->user->gender === 0)
+                        未回答
+                      @endif
+                    </td>
+                    <td>{{ $entry->user->prefecture->name }} {{ $entry->user->city->name }}</td>
+                    <td>{{ $entry->job->title }}</td>
                     <td>
                       <a type="button" href="{{ route('company.entry.show', $entry->id) }}" class="btn btn-outline-danger">メッセージ</a>
                       <form action="{{ route('company.entry.destroy',$entry->id) }}" method="post" style="display:inline-block;">
@@ -51,10 +75,11 @@
                     </td>
                   </tr>
                 @endforeach
-              @endforeach
+              @endforeach --}}
             </tbody>
           </table>
         </div>
+        {{ $entries->links() }}
       </main>
     </div>
   </div>

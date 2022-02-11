@@ -222,6 +222,11 @@
           toastr.success('{{ session('msg_login') }}');
         });
       @endif;
+      @if (session('msg_logout'))
+        $(function () {
+          toastr.success('{{ session('msg_logout') }}');
+        });
+      @endif;
       @if (session('msg_create'))
         $(function () {
           toastr.success('{{ session('msg_create') }}');

@@ -165,6 +165,16 @@
             toastr.danger('{{ session('msg_destroy') }}');
         });
         @endif;
+        @if (session('msg_login'))
+        $(function () {
+            toastr.danger('{{ session('msg_login') }}');
+        });
+        @endif;
+        @if (session('msg_logout'))
+        $(function () {
+            toastr.danger('{{ session('msg_logout') }}');
+        });
+        @endif;
     </script>
 </body>
 </html>

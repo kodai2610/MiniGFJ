@@ -28,8 +28,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::COMPANY_HOME;
-
+    // protected $redirectTo = RouteServiceProvider::COMPANY_HOME;
+    protected function redirectTo() {
+        session()->flash('msg_login', '✔︎ ログインしました');
+        return RouteServiceProvider::COMPANY_HOME;
+    }
     /**
      * Create a new controller instance.
      *
@@ -62,7 +65,8 @@ class LoginController extends Controller
 
     // ログアウトした時のリダイレクト先
     public function loggedOut(Request $request)
-    {
-        return redirect(route('company.login'));
+    {   
+        session()->flash('msg_logout', '✔︎ ログアウトしました');
+        return redirect(route('user.welcome'));
     }
 }

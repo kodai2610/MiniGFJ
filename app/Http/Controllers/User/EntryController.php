@@ -15,7 +15,8 @@ class EntryController extends Controller
 {
     //
     public function index() {
-        $entries = Entry::where('user_id',Auth::id())->get();
+        // $entries = Entry::where('user_id',Auth::id())->get();
+        $entries = Entry::where('user_id',Auth::id())->paginate(1);
         return view('user.entry.index', compact('entries'));
     }
 

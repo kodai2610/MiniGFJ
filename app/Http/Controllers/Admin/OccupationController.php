@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Occupation;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreOccupation;
+use Illuminate\Support\Facades\DB;
 
 class OccupationController extends Controller
 {   
@@ -25,8 +26,8 @@ class OccupationController extends Controller
      */
     public function index()
     {
-        //
-        $occupations = Occupation::all();
+        //クエリビルダ練習
+        $occupations = DB::table('occupations')->paginate(6);
         return view('admin.occupation.index',compact('occupations'));
     }
 
@@ -51,7 +52,11 @@ class OccupationController extends Controller
     {
         //
         $post = $request->all();//入力値受け取り
-        Occupation::create($post);
+        // Occupation::create($post);
+        $param = [
+            'name' => $request->name,
+        ];
+        DB::table('occupations')->insert($param);
         session()->flash('msg_create', '✔︎ 作成が完了しました'); 
         return redirect()->route('admin.occupation.index');
     }
@@ -66,7 +71,8 @@ class OccupationController extends Controller
     public function edit($id)
     {
         //
-        $occupation = Occupation::find($id);
+        // $occupation = Occupation::find($id);
+        $occupation = DB::table('occupations')->where('id', $id)->first();
         return view('admin.occupation.edit', compact('occupation'));
     }
 
@@ -80,10 +86,14 @@ class OccupationController extends Controller
     public function update(StoreOccupation $request, $id)
     {
         //
-        $post = $request->all();
-        unset($post['_method']);
-        unset($post['_token']);
-        Occupation::where(['id' => $id])->update($post);
+        // $post = $request->all();
+        // unset($post['_method']);
+        // unset($post['_token']);
+        // Occupation::where(['id' => $id])->update($post);
+        $param = [
+            'name' => $request->name,
+        ];
+        DB::table('occupations')->where('id', $id)->update($param);
         session()->flash('msg_update', '✔︎ 更新が完了しました');
         return redirect()->route('admin.occupation.index');
     }
@@ -97,7 +107,8 @@ class OccupationController extends Controller
     public function destroy($id)
     {
         //
-        Occupation::where(['id' => $id])->delete();
+        // Occupation::where(['id' => $id])->delete();
+        DB::table('occupations')->where('id', $id)->delete();
         session()->flash('msg_destroy', '✔︎ 削除が完了しました');
         return redirect()->route('admin.occupation.index');
     }

@@ -13,22 +13,20 @@
 
 use App\Http\Controllers\User\EntryController;
 use App\Models\Entry;
+use App\Http\Middleware\HelloMiddleware;
+
+//practice
+Route::get('hello', 'HelloController@index')->middleware('hello');
+Route::post('hello', 'HelloController@post');
+
+
+
+
+
 
 Route::get('/', function () {
     return view('user.welcome');
 })->name('user.welcome');   
-
-// Route::get('/admin', function () {
-//     return view('admin.welcome');
-// });
-
-// Route::get('/company', function () {
-//     return view('company.welcome');
-// });
-
-// Auth::routes();
-
-// Route::get('/home', 'HomeController@index')->name('home');
 
 // ユーザー
 Route::namespace('User')->prefix('/')->name('user.')->group(function () {

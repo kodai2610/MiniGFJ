@@ -43,6 +43,7 @@
               @endforeach
             </tbody>
           </table>
+          {{ $features->links() }}
         </div>
       </main>
     </div>

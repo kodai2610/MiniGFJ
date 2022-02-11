@@ -43,6 +43,7 @@
               @endforeach
             </tbody>
           </table>
+          {{ $industries->links() }}
         </div>
       </main>
     </div>

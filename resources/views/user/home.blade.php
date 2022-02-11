@@ -33,7 +33,10 @@
               </div>
             </a>
           @endforeach
-        </div>      
+        </div>   
+       <div class="mt-4">
+          {{$jobs->links()}}   
+        </div>
       </main>
     </div>
   </div>

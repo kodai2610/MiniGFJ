@@ -18,7 +18,7 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array
      */
-    protected $except = [
+    protected $except = [ //csrfの必要がないアクションの配列
         //
     ];
 }
