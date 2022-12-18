@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
+        // \App\Http\Middleware\MyMiddleware::class,
         // \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
@@ -45,6 +46,11 @@ class Kernel extends HttpKernel
         'hello' => [
             \App\Http\Middleware\HelloMiddleware::class,
         ],
+
+        'MyMW' => [
+            \App\Http\Middleware\HelloMiddleware::class,
+            \App\Http\Middleware\MyMiddleware::class,
+        ]
     ];
 
     /**

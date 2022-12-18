@@ -11,13 +11,13 @@
 |
 */
 
+use App\Http\Controllers\HelloController;
 use App\Http\Controllers\User\EntryController;
 use App\Models\Entry;
 use App\Http\Middleware\HelloMiddleware;
 
 //practice
-Route::get('hello', 'HelloController@index')->middleware('hello');
-Route::post('hello', 'HelloController@post');
+Route::get('/hello/{id?}', 'HelloController@index')->name('hello');
 
 
 

@@ -2,31 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use Illuminate\Http\Request;
-use App\Http\Requests\HelloRequest;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use App\Http\Pagination\MyPaginator;
+use App\Models\Person;
 
 class HelloController extends Controller
-{
-    //
-    public function index(Request $request) {
-        if($request->hasCookie('msg')) {//クッキーの取得
-            $msg = 'Cookie:' . $request->cookie('msg');
-        } else {
-            $msg = '※クッキーはありません。';
-        }
-        return view('hello.index', ['msg' => $msg]);
+{      
+    public function __construct()
+    {
     }
 
-    public function post(Request $request) {
-        $validate_rule = [
-            'msg' => 'required',
-        ];
-        $this->validate($request, $validate_rule);
-        $msg = $request->msg;
-        $response = response()->view('hello.index', ['msg' => '「' .$msg. '」をクッキーに保存しました。']);
-        $response->cookie('msg', $msg, 100); //保存期間100分
+    public function index(Request $request){
+        $msg = 'show people record.';
+        $keys = Person::get()->modelKeys();
+        $even = array_filter($keys, function($key) {
+            return $key % 2 == 0;
+        });
+        $result = Person::get()->only($even);
 
-        return $response;
+        $data = [
+            'msg' => $msg,
+            'data' => $result,
+        ];
+
+        return view('hello.index',$data);
+    }
+
+    public function other() {
+        
     }
 }
